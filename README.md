@@ -15,3 +15,7 @@ Have FuN!
 
 My Discord
 -: https://discord.gg/MEDzUG7cAS
+
+-- updated by chasescripts / oct 25 / 2023 
+0.00ms-0.01ms idle
+0.02ms-0.05ms when in use / near markers
