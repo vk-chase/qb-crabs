@@ -1,8 +1,6 @@
 QBCore = exports['qb-core']:GetCoreObject()
-
 local locations = {}
-local primeraaparicion = true
-
+local digtimer = math.random(10000,20000)
 local Keys = {
 	["ESC"] = 322, ["F1"] = 288, ["F2"] = 289, ["F3"] = 170, ["F5"] = 166, ["F6"] = 167, ["F7"] = 168, ["F8"] = 169, ["F9"] = 56, ["F10"] = 57,
 	["~"] = 243, ["1"] = 157, ["2"] = 158, ["3"] = 160, ["4"] = 164, ["5"] = 165, ["6"] = 159, ["7"] = 161, ["8"] = 162, ["9"] = 163, ["-"] = 84, ["="] = 83, ["BACKSPACE"] = 177,
@@ -25,22 +23,21 @@ CreateThread( function()
 	Wait(1000)
 		if GetDistanceBetweenCoords(Config.PickupBlip.x,Config.PickupBlip.y,Config.PickupBlip.z, GetEntityCoords(PlayerPedId())) <= 200 then
 			if spawned == false then
-
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
-				TriggerEvent('Farmcyc:comienzo')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
+				TriggerEvent('mudbug:server:pickupspotspawns')
 
 			end
 			spawned = true
@@ -54,77 +51,70 @@ CreateThread( function()
 	end
 end)
 
+
+CreateThread(function()
+	Blipventacamaronesycangrejos = AddBlipForCoord(Config.SellSeafood)
+	SetBlipAsShortRange(Blipventacamaronesycangrejos, true)
+	SetBlipSprite(Blipventacamaronesycangrejos, 266)
+	SetBlipColour(Blipventacamaronesycangrejos, 47)
+	SetBlipScale(Blipventacamaronesycangrejos, 0.7)
+	AddTextComponentString(Config.SellBlip)
+	EndTextCommandSetBlipName(Blipventacamaronesycangrejos)
+end)
 local blipPickup = AddBlipForCoord(Config.PickupBlip.x,Config.PickupBlip.y,Config.PickupBlip.z)
 			SetBlipSprite (blipPickup, 266)
 			SetBlipDisplay(blipPickup, 4)
-			SetBlipScale  (blipPickup, 1.1)
+			SetBlipScale  (blipPickup, 0.7)
 			SetBlipColour (blipPickup, 47)
 			SetBlipAsShortRange(blipPickup, true)
 			BeginTextCommandSetBlipName("STRING")
-			AddTextComponentString(Config.nombrerecoBlip)
+			AddTextComponentString(Config.CrabHarvestingBlip)
 			EndTextCommandSetBlipName(blipPickup)
 
-local blipProcess = AddBlipForCoord(Config.Processing.x, Config.Processing.y, Config.Processing.z)
-
+local blipProcess = AddBlipForCoord(Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z)
 			SetBlipSprite (blipProcess, 266)
 			SetBlipDisplay(blipProcess, 4)
-			SetBlipScale  (blipProcess, 1.1)
+			SetBlipScale  (blipProcess, 0.7)
 			SetBlipColour (blipProcess, 47)
 			SetBlipAsShortRange(blipProcess, true)
 			BeginTextCommandSetBlipName("STRING")
 			AddTextComponentString(Config.nombreproceBlip)
 			EndTextCommandSetBlipName(blipProcess)
-
-
-
 local process = true
-
-local blipcamarones = AddBlipForCoord(Config.camarones.x, Config.camarones.y, Config.camarones.z)
-
+local blipcamarones = AddBlipForCoord(Config.ShrimpProcessSpot.x, Config.ShrimpProcessSpot.y, Config.ShrimpProcessSpot.z)
 			SetBlipSprite (blipcamarones, 266)
 			SetBlipDisplay(blipcamarones, 4)
-			SetBlipScale  (blipcamarones, 1.1)
+			SetBlipScale  (blipcamarones, 0.7)
 			SetBlipColour (blipcamarones, 47)
 			SetBlipAsShortRange(blipcamarones, true)
 			BeginTextCommandSetBlipName("STRING")
-			AddTextComponentString(Config.nombrecamaBlip)
+			AddTextComponentString(Config.BlipShrimpProcess)
 			EndTextCommandSetBlipName(blipcamarones)
-
-
-
 local camarones = true
+
 
 CreateThread(function()
     while true do
         Wait(0)
-
 			for k in pairs(locations) do
-				if GetDistanceBetweenCoords(locations[k].x, locations[k].y, locations[k].z, GetEntityCoords(PlayerPedId())) < 150 then
+				if GetDistanceBetweenCoords(locations[k].x, locations[k].y, locations[k].z, GetEntityCoords(PlayerPedId())) < 50 then
 					DrawMarker(2, locations[k].x, locations[k].y, locations[k].z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 228, 71, 12, 110, 1, 1, 0, 1)
-
 					if GetDistanceBetweenCoords(locations[k].x, locations[k].y, locations[k].z, GetEntityCoords(PlayerPedId()), false) < 2 then
 				ShowHelpNotification('Press ~INPUT_PICKUP~ to catch crabs/shrimp')
-
 				if IsControlJustReleased(0, Keys['E']) then
-						--TriggerServerEvent('Farmcyc:recoleccion')
-						----TriggerEvent('Farmcyc:nuevo', k)
 						Animacion()
-						TriggerEvent('Farmcyc:nuevo', k)
+						Wait(digtimer)
+						TriggerEvent('mudbug:server:pickupnew', k)
 				end
-
 					end
-
 				end
 			end
+			if GetDistanceBetweenCoords(Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z, GetEntityCoords(PlayerPedId())) < 150 then
+					DrawMarker(2, Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.3, 1.3, 1.0, 228, 71, 12, 110, 1, 1, 0, 1)
 
-			-------------------------------------------------------------------------------------------------------------------------------------
-
-			if GetDistanceBetweenCoords(Config.Processing.x, Config.Processing.y, Config.Processing.z, GetEntityCoords(PlayerPedId())) < 150 then
-					DrawMarker(2, Config.Processing.x, Config.Processing.y, Config.Processing.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.3, 1.3, 1.0, 228, 71, 12, 110, 1, 1, 0, 1)
-
-					if GetDistanceBetweenCoords(Config.Processing.x, Config.Processing.y, Config.Processing.z, GetEntityCoords(PlayerPedId()), true) < 2 then
-						---Draw3DText( Config.Processing.x, Config.Processing.y, Config.Processing.z , "~w~Produccion de cangrejos~y~\nPresiona [~b~E~y~] para comenzar el empaquetado",4,0.15,0.1)
-						DrawText3Ds(vector3(Config.Processing.x,Config.Processing.y,Config.Processing.z), "Press [E] to pack crabs ", 0.35)
+					if GetDistanceBetweenCoords(Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z, GetEntityCoords(PlayerPedId()), true) < 2 then
+						---Draw3DText( Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z , "~w~Produccion de cangrejos~y~\nPresiona [~b~E~y~] para comenzar el empaquetado",4,0.15,0.1)
+						DrawText3Ds(vector3(Config.CrabProcessingSpot.x,Config.CrabProcessingSpot.y,Config.CrabProcessingSpot.z), "Press [E] to pack crabs ", 0.35)
 
 						if IsControlJustReleased(0, Keys['E']) then
 							CreateThread(function()
@@ -134,20 +124,16 @@ CreateThread(function()
 						end
 					end
 
-					if GetDistanceBetweenCoords(Config.Processing.x, Config.Processing.y, Config.Processing.z, GetEntityCoords(PlayerPedId()), true) < 5 and GetDistanceBetweenCoords(Config.Processing.x, Config.Processing.y, Config.Processing.z, GetEntityCoords(PlayerPedId()), true) > 3 then
+					if GetDistanceBetweenCoords(Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z, GetEntityCoords(PlayerPedId()), true) < 5 and GetDistanceBetweenCoords(Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z, GetEntityCoords(PlayerPedId()), true) > 3 then
 						process = false
 					end
 				end
+				if GetDistanceBetweenCoords(Config.ShrimpProcessSpot.x, Config.ShrimpProcessSpot.y, Config.ShrimpProcessSpot.z, GetEntityCoords(PlayerPedId())) < 150 then
+					DrawMarker(2, Config.ShrimpProcessSpot.x, Config.ShrimpProcessSpot.y, Config.ShrimpProcessSpot.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.3, 1.3, 1.0, 228, 71, 12, 110, 1, 1, 0, 1)
 
-
-------------------------------------------------------------------------------------------------------------------------------------------------------
-
-				if GetDistanceBetweenCoords(Config.camarones.x, Config.camarones.y, Config.camarones.z, GetEntityCoords(PlayerPedId())) < 150 then
-					DrawMarker(2, Config.camarones.x, Config.camarones.y, Config.camarones.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.3, 1.3, 1.0, 228, 71, 12, 110, 1, 1, 0, 1)
-
-					if GetDistanceBetweenCoords(Config.camarones.x, Config.camarones.y, Config.camarones.z, GetEntityCoords(PlayerPedId()), true) < 2 then
-						---Draw3DText( Config.Processing.x, Config.Processing.y, Config.Processing.z , "~w~Produccion de cangrejos~y~\nPresiona [~b~E~y~] para comenzar el empaquetado",4,0.15,0.1)
-						DrawText3Ds(vector3(Config.camarones.x,Config.camarones.y,Config.camarones.z), "Press [E] to pack shrimp ", 0.35)
+					if GetDistanceBetweenCoords(Config.ShrimpProcessSpot.x, Config.ShrimpProcessSpot.y, Config.ShrimpProcessSpot.z, GetEntityCoords(PlayerPedId()), true) < 2 then
+						---Draw3DText( Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z , "~w~Produccion de cangrejos~y~\nPresiona [~b~E~y~] para comenzar el empaquetado",4,0.15,0.1)
+						DrawText3Ds(vector3(Config.ShrimpProcessSpot.x,Config.ShrimpProcessSpot.y,Config.ShrimpProcessSpot.z), "Press [E] to pack shrimp ", 0.35)
 
 						if IsControlJustReleased(0, Keys['E']) then
 							CreateThread(function()
@@ -156,12 +142,10 @@ CreateThread(function()
 						end
 					end
 
-					if GetDistanceBetweenCoords(Config.camarones.x, Config.camarones.y, Config.camarones.z, GetEntityCoords(PlayerPedId()), true) < 5 and GetDistanceBetweenCoords(Config.Processing.x, Config.Processing.y, Config.Processing.z, GetEntityCoords(PlayerPedId()), true) > 3 then
+					if GetDistanceBetweenCoords(Config.ShrimpProcessSpot.x, Config.ShrimpProcessSpot.y, Config.ShrimpProcessSpot.z, GetEntityCoords(PlayerPedId()), true) < 5 and GetDistanceBetweenCoords(Config.CrabProcessingSpot.x, Config.CrabProcessingSpot.y, Config.CrabProcessingSpot.z, GetEntityCoords(PlayerPedId()), true) > 3 then
 						camarones = false
 					end
 				end
-
-
     end
 end)
 
@@ -175,9 +159,9 @@ function Draw3DText(x,y,z,textInput,fontId,scaleX,scaleY)
 	SetTextFont(fontId)
 	SetTextProportional(1)
 	if inDist then
-	   SetTextColour(0, 190, 0, 220)		-- You can change the text color here
+	   SetTextColour(0, 190, 0, 220)
 	else
-		SetTextColour(220, 0, 0, 220)		-- You can change the text color here
+		SetTextColour(220, 0, 0, 220)
 	end
 	SetTextDropshadow(1, 1, 1, 1, 255)
 	SetTextEdge(2, 0, 0, 0, 150)
@@ -190,30 +174,32 @@ function Draw3DText(x,y,z,textInput,fontId,scaleX,scaleY)
 	DrawText(0.0, 0.0)
 	ClearDrawOrigin()
 end
+function animationdist1()
+	local ped = PlayerPedId()
+	local animDict = "mini@tennis"
+	local animName = "forehand_ts_md_far"
+	TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+	RequestAnimDict(animDict)
+	while not HasAnimDictLoaded(animDict) do
+		Wait(100)
+	end
+	TaskPlayAnim(ped, animDict, animName, 1.0, -1.0, 1.0, 0, 0, 0, 48, 0)
+	Wait(2000)
+	TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+	if math.random(1, 100) < 50 then
+		TriggerServerEvent('hud:server:RelieveStress', 5)
+	end
+	RemoveAnimDict(animDict)
+end
 
 function Animacion()
-	local ped = PlayerPedId()
-	RequestAnimDict("amb@world_human_gardener_plant@male@idle_a")
-	Wait(100)
-	TaskPlayAnim(ped,'amb@world_human_gardener_plant@male@idle_a', 'idle_b', 8.0, 8.0, -1, 0, 0, 0, 0, 0)
-	QBCore.Functions.Progressbar('search', 'Searching...', 5000, false, true, { -- Name | Label | Time | useWhileDead | canCancel
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {
-		animDict = 'anim@gangops@facility@servers@',
-		anim = 'hotwire',
-		flags = 16,
-	}, {}, {}, function() -- Play When Done
-		TriggerServerEvent('Farmcyc:recoleccion')
-	end, function() -- Play When Cancel
-		QBCore.Functions.Notify('Canceled', 'error', 7500)
-	end)
-	-- exports['progressBars']:startUI(1500, "Buscando")
-	Wait(1500)
-	ClearPedTasks(ped)
-	FreezeEntityPosition(ped,false)
+	local HasItem1 = QBCore.Functions.HasItem('shovel')
+	if not HasItem1 then
+        QBCore.Functions.Notify("Missing Shovel...", "error")
+        return
+    else
+		PropBucket()
+	end
 end
 
 
@@ -225,13 +211,12 @@ function Process()
 		QBCore.Functions.Notify('Starting Production of Crabs', 'success', 4000)
 	Wait(5000)
 
-	QBCore.Functions.TriggerCallback('Farmcyc:empaquetado:cangrejos', function(output)
+	QBCore.Functions.TriggerCallback('mudbug:server:crabsprocessed', function(output)
 			making = output
 		end)
 
 	end
 end
-
 
 function Camarones()
 	camarones = true
@@ -240,7 +225,7 @@ function Camarones()
 		QBCore.Functions.Notify('Starting Production of Shrimps', 'success', 4000)
 		Wait(5000)
 
-		QBCore.Functions.TriggerCallback('Farmcyc:empaquetado:camarones', function(output)
+		QBCore.Functions.TriggerCallback('mudbug:server:shrimpprocessed', function(output)
 				makingcamarones = output
 			end)
 
@@ -248,42 +233,24 @@ function Camarones()
 	print('Works Beautifulyy!')
 end
 
-
-RegisterNetEvent('Farmcyc:comienzo', function()
+RegisterNetEvent('mudbug:server:pickupspotspawns', function()
 	local set = false
-
-
 	Wait(10)
-
 	local rnX = Config.PickupBlip.x + math.random(-35, 35)
 	local rnY = Config.PickupBlip.y + math.random(-35, 35)
-
 	local u, Z = GetGroundZFor_3dCoord(rnX ,rnY ,300.0,0)
-
-
-
-
 	table.insert(locations,{x=rnX, y=rnY, z=Z + 0.3});
-
-
-
 end)
 
-
-RegisterNetEvent('Farmcyc:nuevo', function(id)
+RegisterNetEvent('mudbug:server:pickupnew', function(id)
 	local set = false
 	Wait(10)
-
-
 	local rnX = Config.PickupBlip.x + math.random(-35, 35)
 	local rnY = Config.PickupBlip.y + math.random(-35, 35)
-
 	local u, Z = GetGroundZFor_3dCoord(rnX ,rnY ,300.0,0)
-
 	locations[id].x = rnX
 	locations[id].y = rnY
 	locations[id].z = Z + 0.3
-
 end)
 
 function DisplayHelpText(str)
@@ -292,61 +259,35 @@ function DisplayHelpText(str)
 	DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 end
 
-
-
 DrawText3Ds = function(coords, text, scale)
     local x,y,z = coords.x, coords.y, coords.z
     local onScreen, _x, _y = World3dToScreen2d(x, y, z)
     local pX, pY, pZ = table.unpack(GetGameplayCamCoords())
-
     SetTextScale(scale, scale)
     SetTextFont(4)
     SetTextProportional(1)
     SetTextEntry("STRING")
     SetTextCentre(1)
     SetTextColour(255, 255, 255, 215)
-
     AddTextComponentString(text)
     DrawText(_x, _y)
     local factor = (string.len(text)) / 280
-
     DrawRect(_x, _y + 0.0115, 0.032 + factor, 0.033, 41, 11, 41, 100)
 end
-
-
-
-
-CreateThread(function()
-
-	Blipventacamaronesycangrejos = AddBlipForCoord(Config.ventacyc.x, Config.ventacyc.y, Config.ventacyc.z)
-SetBlipAsShortRange(Blipventacamaronesycangrejos, true)
-SetBlipSprite(Blipventacamaronesycangrejos, 266)
-SetBlipColour(Blipventacamaronesycangrejos, 47)
-SetBlipScale(Blipventacamaronesycangrejos, 1.5)
-AddTextComponentString(Config.Blipnombrecyc)
-EndTextCommandSetBlipName(Blipventacamaronesycangrejos)
-
-end)
-
 
 CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		Wait(1)
-			 if GetDistanceBetweenCoords(GetEntityCoords(ped), Config.ventacyc.x, Config.ventacyc.y, Config.ventacyc.z, true) < 25 then
-
-				 DrawMarker(29, Config.ventacyc.x, Config.ventacyc.y, Config.ventacyc.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5, 1.5, 1.0, 228, 71, 12, 100, true, false, 2, false, nil, nil, false)
-
-		   if GetDistanceBetweenCoords(GetEntityCoords(ped), Config.ventacyc.x, Config.ventacyc.y, Config.ventacyc.z, true) < 2 then
-			   DrawText3Ds(vector3(Config.ventacyc.x,Config.ventacyc.y,Config.ventacyc.z), "Press [E] to open the shop menu ", 0.35)
-
-		   if IsControlJustReleased(0, Keys['E']) then
+		    if GetDistanceBetweenCoords(GetEntityCoords(ped), Config.SellingSpot.x, Config.SellingSpot.y, Config.SellingSpot.z, true) < 25 then
+				 DrawMarker(29, Config.SellingSpot.x, Config.SellingSpot.y, Config.SellingSpot.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5, 1.5, 1.0, 228, 71, 12, 100, true, false, 2, false, nil, nil, false)
+		    if GetDistanceBetweenCoords(GetEntityCoords(ped), Config.SellingSpot.x, Config.SellingSpot.y, Config.SellingSpot.z, true) < 2 then
+			   DrawText3Ds(vector3(Config.SellingSpot.x,Config.SellingSpot.y,Config.SellingSpot.z), "Press [E] to open the shop menu ", 0.35)
+		    if IsControlJustReleased(0, Keys['E']) then
 			   tiendacyc()
-
-		   end
-		end
+		    end
+		end end 
 	end
-		end
 end)
 
 local cute = {
@@ -356,29 +297,29 @@ local cute = {
 		header = 'Selling Shop',
 	},
 	{
-		header = 'Sell Shrimp Cost $',
-		txt = Config.PCamaron,
-		icon = "fa-solid fa-user-plus",
+		header = 'Sell Boxed Shrimp',
+		txt ="Cash Payout of $"..Config.ProcessedShrimpPayout.."<br>Amount Required PerSale: "..Config.ShrimBoxRequired.."",
+		icon = "fa-solid fa-user-register",
 		params = {
-			event = 'okshrimp',
+			event = 'mudbug:client:payoutShrimp',
 		}
 	},
 	{
-		header = "Sell Crab Cost $",
-		txt = Config.PCangrejo,
+		header = "Sell Crawfish",
+		txt ="Cash Payout of $"..Config.CrawFishPayout.."<br>Amount Required PerSale: "..Config.CrawfishRequired.."",
 		icon = "fa-solid fa-cash-register",
 		params = {
-			event = 'okcrab',
+			event = 'mudbug:client:payoutCrab',
 		}
 	},
 }
 
-RegisterNetEvent('okshrimp', function()
-	TriggerServerEvent('Ventadecamarones')
+RegisterNetEvent('mudbug:client:payoutShrimp', function()
+	TriggerServerEvent('mudbug:server:paymentsale1')
 end)
 
-RegisterNetEvent('okcrab', function()
-	TriggerServerEvent('Ventadecangrejos')
+RegisterNetEvent('mudbug:client:payoutCrab', function()
+	TriggerServerEvent('mudbug:server:paymentsale2')
 end)
 
 
@@ -386,74 +327,59 @@ function tiendacyc()
 	exports['qb-menu']:openMenu(cute)
 end
 
-
-CreateThread(function()
-	local hash = GetHashKey("s_m_y_chef_01")
-	if not HasModelLoaded(hash) then
-		RequestModel(hash)
-		Wait(100)
-
-	end
-
-	while not HasModelLoaded(hash) do
-		Wait(0)
-	end
-
-	if primeraaparicion == true then
-		local npc = CreatePed(6,hash, Config.pedventa.x, Config.pedventa.y, Config.pedventa.z, Config.pedventa.h, false, false)
-		FreezeEntityPosition(npc, true)
-		SetEntityInvincible(npc, true)
-		SetBlockingOfNonTemporaryEvents(npc, true)
-	end
-end)
-
-
-
-CreateThread(function()
-	local hash = GetHashKey("s_f_y_factory_01")
-	if not HasModelLoaded(hash) then
-		RequestModel(hash)
-		Wait(100)
-
-	end
-
-	while not HasModelLoaded(hash) do
-		Wait(0)
-	end
-
-	if primeraaparicion == true then
-		local npc = CreatePed(6,hash, Config.pedemp1.x, Config.pedemp1.y, Config.pedemp1.z, Config.pedemp1.h, false, false)
-		FreezeEntityPosition(npc, true)
-		SetEntityInvincible(npc, true)
-		SetBlockingOfNonTemporaryEvents(npc, true)
-	end
-end)
-
-
-
-CreateThread(function()
-	local hash = GetHashKey("s_m_y_factory_01")
-	if not HasModelLoaded(hash) then
-		RequestModel(hash)
-		Wait(100)
-
-	end
-
-	while not HasModelLoaded(hash) do
-		Wait(0)
-	end
-
-	if primeraaparicion == true then
-		local npc = CreatePed(6,hash, Config.pedemp2.x, Config.pedemp2.y, Config.pedemp2.z, Config.pedemp2.h, false, false)
-		FreezeEntityPosition(npc, true)
-		SetEntityInvincible(npc, true)
-		SetBlockingOfNonTemporaryEvents(npc, true)
-	end
-
-end)
-
 function ShowHelpNotification(text)
     SetTextComponentFormat("STRING")
     AddTextComponentString(text)
     DisplayHelpTextFromStringLabel(0, 0, 1, 50)
+end
+
+
+function PropBucket()
+    local ped = PlayerPedId()
+    local pos = GetEntityCoords(ped)
+    local forward   = GetEntityForwardVector(ped)
+    local x, y, z   = table.unpack(pos + forward * 1.0)
+    local model = `prop_bucket_02a`
+    RequestModel(model)
+    while (not HasModelLoaded(model)) do
+        Wait(1)
+    end
+    local obj = CreateObject(model, x, y, z, true, false, true)
+    PlaceObjectOnGroundProperly(obj)
+    SetEntityAsMissionEntity(obj)
+    LocalPlayer.state:set("inv_busy", true, true)
+
+    TriggerEvent('animations:client:EmoteCommandStart', {"pickup"})
+	Wait(500)
+	TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+	TriggerEvent('mudbug:client:newroute')
+	PropBucket2()
+		Wait(digtimer+700)
+	TriggerEvent('animations:client:EmoteCommandStart', {"pickup"})
+	Wait(1000)
+	TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+	DeleteEntity(obj)
+	Wait(1000)
+end
+
+function PropBucket2()
+	Wait(1500)
+	TriggerEvent('animations:client:EmoteCommandStart', {"dig"})
+	QBCore.Functions.Progressbar('search', 'Checking the Mud...', digtimer, false, true, { -- Name | Label | Time | useWhileDead | canCancel
+		disableMovement = true,
+		disableCarMovement = true,
+		disableMouse = false,
+		disableCombat = true,
+	}, {}, {}, {}, function()
+		if math.random(1,100) >= 50 then
+			TriggerServerEvent('mudbug:server:getreward')
+			animationdist1()
+			TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+		else
+			QBCore.Functions.Notify('Couldnt Find Anything, Try again or check another spot!', 'error', 7500)
+			TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+		end
+	end, function()
+	QBCore.Functions.Notify('Canceled', 'error', 7500)
+	end)
 end
