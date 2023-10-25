@@ -1,27 +1,24 @@
 Config = {}
 
 Config.PickupBlip = {x = -2334.1  , y = 2764.7 ,z = 3.15}
-Config.Processing = {x = -3281.87 , y = 976.09, z = 8.35}
-Config.camarones = {x = -3282.09 , y = 958.72, z = 8.35}
+Config.CrabProcessingSpot = {x = -3281.87 , y = 976.09, z = 8.35}
+Config.ShrimpProcessSpot = {x = -3282.09 , y = 958.72, z = 8.35}
+Config.SellingSpot = {x = -1042.29 , y = -1353.84 , z = 5.53}
+
+Config.ShrimpPerBox = 4 -- shrimp required to process
+Config.ShrimBoxRequired = 1 -- boxes required to sell the processed shrimp
+Config.CrabPerBox = 5   -- crabs required to process
+Config.CrawfishRequired = 2--amount of processed crabs aka crawfish you need to sell
+
+Config.PayType = 'bank' -- 'cash' or 'bank'
+Config.ProcessedShrimpPayout = 500 -- ^ amount you get for selling the required boxes ^
+Config.CrawFishPayout = 500
 
 
-Config.nombrecamaBlip = "Shrimp Processing"
-Config.nombrerecoBlip = "Crab Harvesting"
-Config.nombreproceBlip = "Crab Processing"
-
-
------------------------------
-
-
-Config.pedventa = {x = -1040.7 , y = -1354.17, z = 4.65, h = 81.87}
-Config.ventacyc = {x = -1042.29 , y = -1353.84 , z = 5.53}
-Config.pedemp1 = {x = -3282.11 , y = 956.75, z = 7.45, h = 5.27}
-Config.pedemp2 = {x = -3281.96 , y = 978.38, z = 7.45, h = 178.54}
-
-Config.Blipnombrecyc = "Ventacyc"
-
-Config.PCamaron = 500
-Config.PCangrejo = 500
+Config.BlipShrimpProcess = "Shrimp Processing"
+Config.CrabHarvestingBlip = "Crab Harvesting"
+Config.CrabProcessingBlip = "Crab Processing"
+Config.SellBlip = "SeaFood Sales"
 
 
 
