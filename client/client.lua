@@ -18,10 +18,10 @@ local spawned = false
 
 
 CreateThread( function()
-	Wait(10000)
+	Wait(1000)
 	while true do
 	Wait(1000)
-		if GetDistanceBetweenCoords(Config.PickupBlip.x,Config.PickupBlip.y,Config.PickupBlip.z, GetEntityCoords(PlayerPedId())) <= 200 then
+		if GetDistanceBetweenCoords(Config.PickupBlip.x,Config.PickupBlip.y,Config.PickupBlip.z, GetEntityCoords(PlayerPedId())) <= 80 then
 			if spawned == false then
 				TriggerEvent('mudbug:server:pickupspotspawns')
 				TriggerEvent('mudbug:server:pickupspotspawns')
@@ -42,6 +42,7 @@ CreateThread( function()
 			end
 			spawned = true
 		else
+			Wait(5000)
 			if spawned then
 				locations = {}
 			end
@@ -74,20 +75,20 @@ Citizen.CreateThread(function()
     EndTextCommandSetBlipName(blip)
 end)
 
-
-
-
 CreateThread(function()
     while true do
         Wait(0)
 		for k in pairs(locations) do
 					if GetDistanceBetweenCoords(locations[k].x, locations[k].y, locations[k].z, GetEntityCoords(PlayerPedId())) < 80 then
-						DrawMarker(2, locations[k].x, locations[k].y, locations[k].z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 228, 71, 12, 110, 1, 1, 0, 1)
+						DrawMarker(22, locations[k].x, locations[k].y, locations[k].z, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 1.0, 1.0, 1.0, 228, 71, 12, 110, 1, 1, 0, 1)
 						if GetDistanceBetweenCoords(locations[k].x, locations[k].y, locations[k].z, GetEntityCoords(PlayerPedId()), false) < 1.0 then
-					ShowHelpNotification('Press ~INPUT_PICKUP~ to catch crabs/shrimp')
+					exports['qb-core']:DrawText('[E]-DIG WITH SHOVEL','left')
 					if IsControlJustReleased(0, Keys['E']) then
+							exports['qb-core']:HideText()
 							Animacion()
 							Wait(digtimer)
+							--just to make sure its clear when you finish
+								exports['qb-core']:HideText()
 							TriggerEvent('mudbug:server:pickupnew', k)
 					end
 				end
@@ -96,31 +97,7 @@ CreateThread(function()
     end
 end)
 
-function Draw3DText(x,y,z,textInput,fontId,scaleX,scaleY)
-	local px,py,pz=table.unpack(GetGameplayCamCoords())
-	local dist = GetDistanceBetweenCoords(px,py,pz, x,y,z, 1)
-	local scale = (1/dist)*20
-	local fov = (1/GetGameplayCamFov())*100
-	local scale = scale*fov
-	SetTextScale(scaleX*scale, scaleY*scale)
-	SetTextFont(fontId)
-	SetTextProportional(1)
-	if inDist then
-	   SetTextColour(0, 190, 0, 220)
-	else
-		SetTextColour(220, 0, 0, 220)
-	end
-	SetTextDropshadow(1, 1, 1, 1, 255)
-	SetTextEdge(2, 0, 0, 0, 150)
-	SetTextDropShadow()
-	SetTextOutline()
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(textInput)
-	SetDrawOrigin(x,y,z+2, 0)
-	DrawText(0.0, 0.0)
-	ClearDrawOrigin()
-end
+
 function animationdist1()
 	local ped = PlayerPedId()
 	local animDict = "mini@tennis"
@@ -250,13 +227,6 @@ end)
 RegisterNetEvent('mudbug:client:payoutCrab', function()
 	TriggerServerEvent('mudbug:server:paymentsale2')
 end)
-
-function ShowHelpNotification(text)
-    SetTextComponentFormat("STRING")
-    AddTextComponentString(text)
-    DisplayHelpTextFromStringLabel(0, 0, 1, 50)
-end
-
 
 function PropBucket()
     local ped = PlayerPedId()
