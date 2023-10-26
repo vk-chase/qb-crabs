@@ -1,7 +1,7 @@
 Config = Config or {}
 
 Config.PayType = 'bank' -- 'cash' or 'bank'
-Config.NotifyType 'rtx' -- 'rtx' 'qb' or 'okok'
+Config.NotifyType = 'rtx' -- 'rtx' 'qb' or 'okok'
 --### BLIPS ###--
 Config.PickupBlip = {x = -2334.1  , y = 2764.7 ,z = 3.15}
 Config.DigsiteVector = vector3(-2334.10, 2764.70, 3.15)
