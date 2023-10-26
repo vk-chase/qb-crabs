@@ -43,7 +43,15 @@ RegisterNetEvent('mudbugz:client:openMenu', function()
             }
             exports['qb-menu']:openMenu(returnShop)
         else
-            TriggerEvent("rtx_notify:Notify", "Pawn", Lang:t('info.return_closed', { value = Config.TimeOpen, value2 = Config.TimeClosed }), 5000, "error")
+            if Config.NotifyType == 'qb' then
+                QBCore.Functions.Notify(Lang:t('info.return_closed', { value = Config.TimeOpen, value2 = Config.TimeClosed }), "error", 5000)
+            end
+            if Config.NotifyType == 'okok' then
+                exports['okokNotify']:Alert("Mudbuggin", Lang:t('info.return_closed', { value = Config.TimeOpen, value2 = Config.TimeClosed }), 3500, "error")
+            end
+            if Config.NotifyType == 'rtx' then
+                TriggerEvent("rtx_notify:Notify", "Mudbuggin", Lang:t('info.return_closed', { value = Config.TimeOpen, value2 = Config.TimeClosed }), 5000, "error")
+            end
         end
     else
         local returnShop = {
@@ -125,7 +133,15 @@ RegisterNetEvent('mudbugz:client:returnitems', function(item)
         if tonumber(sellingItem.amount) > 0 then
             TriggerServerEvent('mudbugz:server:SellReturnies', item.name, sellingItem.amount, item.price)
         else
-            TriggerEvent("rtx_notify:Notify", "Pawn", Lang:t('error.negative'), 5000, "error")
+            if Config.NotifyType == 'qb' then
+                QBCore.Functions.Notify(Lang:t('error.negative'), "error", 5000)
+            end
+            if Config.NotifyType == 'okok' then
+                exports['okokNotify']:Alert("Mudbuggin", Lang:t('error.negative'), 3500, "error")
+            end
+            if Config.NotifyType == 'rtx' then
+                TriggerEvent("rtx_notify:Notify", "Mudbuggin", Lang:t('error.negative'), 5000, "error")
+            end
         end
     end
 end)
