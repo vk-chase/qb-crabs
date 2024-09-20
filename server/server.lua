@@ -1,11 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local RewardItems = {
-    {item = "crayfish", chance = 40, min = 1, max = 8},
-    {item = "shrimp", chance = 20, min = 1, max = 2},
-    {item = "crabs", chance = 20, min = 1, max = 2},
-						-- add more
-}
+local RewardItems = Config.DiggingRewards
 
 local function AddItemAndNotify(Player, item, amount)
     Player.Functions.AddItem(item, amount)
