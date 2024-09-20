@@ -1,5 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
+-- Create return shop locations
 CreateThread(function()
     for key, value in pairs(Config.SellReturnLocation) do
         exports['qb-target']:AddBoxZone('ReturnShopx'..key, value.coords, value.length, value.width, {
@@ -22,68 +23,53 @@ CreateThread(function()
     end
 end)
 
+-- Helper function for notifications
+local function Notify(message, type)
+    if Config.NotifyType == 'qb' then
+        QBCore.Functions.Notify(message, type, 5000)
+    elseif Config.NotifyType == 'okok' then
+        exports['okokNotify']:Alert("Mudbuggin", message, 3500, type)
+    elseif Config.NotifyType == 'rtx' then
+        TriggerEvent("rtx_notify:Notify", "Mudbuggin", message, 5000, type)
+    end
+end
+
+-- Open main menu
 RegisterNetEvent('mudbugz:client:openMenu', function()
-    if Config.UseTimes then
-        if GetClockHours() >= Config.TimeOpen and GetClockHours() <= Config.TimeClosed then
-            local returnShop = {
-                {
-                    header = Lang:t('info.title'),
-                    isMenuHeader = true,
-                },
-                {
-                    header = Lang:t('info.sell'),
-                    txt = Lang:t('info.sell_return'),
-                    params = {
-                        event = 'mudbugz:client:openReturn',
-                        args = {
-                            items = Config.ReturnItems
-                        }
-                    }
-                }
-            }
-            exports['qb-menu']:openMenu(returnShop)
-        else
-            if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify(Lang:t('info.return_closed', { value = Config.TimeOpen, value2 = Config.TimeClosed }), "error", 5000)
-            end
-            if Config.NotifyType == 'okok' then
-                exports['okokNotify']:Alert("Mudbuggin", Lang:t('info.return_closed', { value = Config.TimeOpen, value2 = Config.TimeClosed }), 3500, "error")
-            end
-            if Config.NotifyType == 'rtx' then
-                TriggerEvent("rtx_notify:Notify", "Mudbuggin", Lang:t('info.return_closed', { value = Config.TimeOpen, value2 = Config.TimeClosed }), 5000, "error")
-            end
-        end
-    else
-        local returnShop = {
-            {
-                header = Lang:t('info.title'),
-                isMenuHeader = true,
-            },
-            {
-                header = Lang:t('info.sell'),
-                txt = Lang:t('info.sell_return'),
-                params = {
-                    event = 'mudbugz:client:openReturn',
-                    args = {
-                        items = Config.ReturnItems
-                    }
+    if Config.UseTimes and (GetClockHours() < Config.TimeOpen or GetClockHours() > Config.TimeClosed) then
+        Notify(Lang:t('info.return_closed', { value = Config.TimeOpen, value2 = Config.TimeClosed }), "error")
+        return
+    end
+
+    local returnShop = {
+        {
+            header = Lang:t('info.title'),
+            isMenuHeader = true,
+        },
+        {
+            header = Lang:t('info.sell'),
+            txt = Lang:t('info.sell_return'),
+            params = {
+                event = 'mudbugz:client:openReturn',
+                args = {
+                    items = Config.ReturnItems
                 }
             }
         }
-        exports['qb-menu']:openMenu(returnShop)
-    end
+    }
+    exports['qb-menu']:openMenu(returnShop)
 end)
 
+-- Open return items menu
 RegisterNetEvent('mudbugz:client:openReturn', function(data)
     QBCore.Functions.TriggerCallback('mudbugz:server:getInv', function(inventory)
-        local PlyInv = inventory
         local returnMenu = {
             {
                 header = Lang:t('info.title'),
                 isMenuHeader = true,
             }
         }
-        for _, v in pairs(PlyInv) do
+        for _, v in pairs(inventory) do
             for i = 1, #data.items do
                 if v.name == data.items[i].item then
                     returnMenu[#returnMenu + 1] = {
@@ -112,6 +98,7 @@ RegisterNetEvent('mudbugz:client:openReturn', function(data)
     end)
 end)
 
+-- Handle item return
 RegisterNetEvent('mudbugz:client:returnitems', function(item)
     local sellingItem = exports['qb-input']:ShowInput({
         header = Lang:t('info.title'),
@@ -125,23 +112,12 @@ RegisterNetEvent('mudbugz:client:returnitems', function(item)
             }
         }
     })
-    if sellingItem then
-        if not sellingItem.amount then
-            return
-        end
-
-        if tonumber(sellingItem.amount) > 0 then
-            TriggerServerEvent('mudbugz:server:SellReturnies', item.name, sellingItem.amount, item.price)
+    if sellingItem and sellingItem.amount then
+        local amount = tonumber(sellingItem.amount)
+        if amount and amount > 0 then
+            TriggerServerEvent('mudbugz:server:SellReturnies', item.name, amount, item.price)
         else
-            if Config.NotifyType == 'qb' then
-                QBCore.Functions.Notify(Lang:t('error.negative'), "error", 5000)
-            end
-            if Config.NotifyType == 'okok' then
-                exports['okokNotify']:Alert("Mudbuggin", Lang:t('error.negative'), 3500, "error")
-            end
-            if Config.NotifyType == 'rtx' then
-                TriggerEvent("rtx_notify:Notify", "Mudbuggin", Lang:t('error.negative'), 5000, "error")
-            end
+            Notify(Lang:t('error.negative'), "error")
         end
     end
 end)
